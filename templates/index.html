@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Posts</title>
+    
+    <style>
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .post img {
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 200px) {
+            .posts-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button id="upload-button" onclick="location.href='/upload'" type="button">+</button>
+    <div class="posts-grid">
+        {% for post in posts %}
+        <div class="post">
+            <img src="{{ url_for('static', filename='uploads/' + post.filename) }}" alt="Post image">
+
+            <p class="titel">{{ post.caption }}</p> 
+            <p class="omschijving">{{ post.description }}</p>
+
+            <button class="like-button icons" data-filename="{{ post.filename }}">
+                ❤️ <span class="likes">{{ post.likes }}</span>
+            </button>
+
+            <button class="share-button icons" data-filename="{{ post.filename }}">
+                🔗
+            </button>
+
+            <button class="comment-button icons" data-filename="{{ post.filename }}">
+                💬 <span class="comment-count">{{ post.comments|length }}</span>
+            </button>
+
+            <div class="comment-section" style="display: none;">
+                <div class="comments">
+                    {% for comment in post.comments %}
+                    <div class="comment">{{ comment }}</div>
+                    {% endfor %}
+                </div>
+                <form class="comment-form" data-filename="{{ post.filename }}">
+                    <input class="form-input kleiner" type="text" name="comment" placeholder="Plaats een reactie...">
+                    <input type="submit" value="Post">
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        
+        document.querySelectorAll('.comment-button').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var commentSection = this.nextElementSibling;
+                if (commentSection.style.display === 'none') {
+                    commentSection.style.display = 'block';
+                } else {
+                    commentSection.style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelectorAll('.comment-form').forEach(form => {
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        const filename = event.target.dataset.filename;
+        const commentInput = event.target.querySelector('input[type="text"]');
+        const comment = commentInput.value;
+        fetch('/comment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ filename, comment })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const commentsSection = event.target.nextElementSibling;
+                const newComment = document.createElement('div');
+                newComment.textContent = comment;
+                commentsSection.appendChild(newComment);
+                commentInput.value = '';
+
+                // Update comment count
+                const commentButton = event.target.previousElementSibling;
+                const commentCount = commentButton.querySelector('.comment-count');
+                commentCount.textContent = parseInt(commentCount.textContent) + 1;
+            }
+        });
+    });
+});
+    </script>
+    <script>
+        document.querySelectorAll('.like-button').forEach(button => {
+            button.addEventListener('click', event => {
+                const filename = event.target.dataset.filename;
+                fetch('/like', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ filename })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const likesSpan = event.target.querySelector('.likes');
+                    likesSpan.textContent = data.likes;
+                });
+            });
+        });
+        
+        document.querySelectorAll('.share-button').forEach(button => {
+    button.addEventListener('click', event => {
+        const filename = event.target.dataset.filename;
+        const postUrl = window.location.origin + '/post/' + filename;
+        navigator.clipboard.writeText(postUrl)
+            .then(() => {
+                alert('Post link copied to clipboard!');
+            })
+            .catch(err => {
+                console.error('Could not copy text: ', err);
+            });
+    });
+});
+    </script>
+</body>
+
+</html>

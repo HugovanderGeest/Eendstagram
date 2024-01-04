@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Upload Image</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #121212;
+            font-family: Arial, sans-serif;
+            color: #ffffff;
+        }
+        form {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.1);
+            width: 80%;
+            max-width: 500px;
+        }
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+        input[type="text"], input[type="submit"] {
+            width: 250px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #dddddd;
+            background-color: #333333;
+            color: #ffffff;
+        }
+        input[type="submit"] {
+            background-color: #007BFF;
+            width: 275px;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="text" name="caption" placeholder="Titel">
+        <input type="text" name="description" placeholder="omschijving">
+        <input type="file" name="photo">
+        <input type="submit" value="Upload">
+    </form>
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    document.getElementById('preview').style.display = 'block';
+                    document.getElementById('preview').src = e.target.result;
+                }
+                
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+</body>
+</html>
