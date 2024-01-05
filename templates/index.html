@@ -1,29 +1,10 @@
 <!DOCTYPE html>
 <html>
-
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Posts</title>
-    
-    <style>
-        .posts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 10px;
-            padding: 10px;
-        }
-
-        .post img {
-            width: 100%;
-            height: auto;
-        }
-
-        @media (max-width: 200px) {
-            .posts-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            }
-        }
-    </style>
 </head>
 
 <body>
