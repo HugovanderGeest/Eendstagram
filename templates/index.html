@@ -76,33 +76,30 @@
             });
         });
 
-        document.querySelectorAll('.comment-form').forEach(form => {
-    form.addEventListener('submit', event => {
-        event.preventDefault();
-        const filename = event.target.dataset.filename;
-        const commentInput = event.target.querySelector('input[type="text"]');
-        const comment = commentInput.value;
+        document.querySelectorAll('.comment-form').forEach(function (form) {
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var filename = this.dataset.filename;
+        var commentInput = this.querySelector('input[name="comment"]');
+        var comment = commentInput.value;
         fetch('/comment', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ filename, comment })
+            body: JSON.stringify({
+                filename: filename,
+                comment: comment,
+            }),
         })
         .then(response => response.json())
         .then(data => {
-            if (data.success) {
-                const commentsSection = event.target.nextElementSibling;
-                const newComment = document.createElement('div');
-                newComment.textContent = comment;
-                commentsSection.appendChild(newComment);
-                commentInput.value = '';
-
-                // Update comment count
-                const commentButton = event.target.previousElementSibling;
-                const commentCount = commentButton.querySelector('.comment-count');
-                commentCount.textContent = parseInt(commentCount.textContent) + 1;
-            }
+            var commentSection = this.previousElementSibling;
+            var newComment = document.createElement('div');
+            newComment.classList.add('comment');
+            newComment.textContent = comment;
+            commentSection.appendChild(newComment);
+            commentInput.value = '';
         });
     });
 });
@@ -137,6 +134,24 @@
             .catch(err => {
                 console.error('Could not copy text: ', err);
             });
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var buttons = document.querySelectorAll('.like-button');
+    buttons.forEach(function(button) {
+        button.addEventListener('click', function(e) {
+            e.target.disabled = true;
+            var clone = e.target.cloneNode(true);
+            clone.classList.add('floating-button');
+            var rect = e.target.getBoundingClientRect();
+            clone.style.left = rect.left + 'px';
+            clone.style.top = rect.top + 'px';
+            document.body.appendChild(clone);
+            setTimeout(function() {
+                document.body.removeChild(clone);
+            }, 2000);
+        });
     });
 });
     </script>

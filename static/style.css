@@ -28,6 +28,16 @@ body {
     border-radius: 30px;
 }
 
+.floating-button {
+    position: fixed;
+    animation: float 2s forwards;
+    opacity: 1;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
 
 .post img {
     width: 100%;

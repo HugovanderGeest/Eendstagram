@@ -1,11 +1,13 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
 import os
 import json
+import secrets
 from PIL import Image
 
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16)
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'
 
 def save_post(filename, caption):
@@ -77,6 +79,9 @@ def posts():
 def like():
     data = request.get_json()
     filename = data['filename']
+    # Check if the user has already liked this post
+    if 'liked_posts' in session and filename in session['liked_posts']:
+        return json.dumps({'message': 'You have already liked this post.'}), 400
     # Load the posts from the JSON file
     with open('posts.json', 'r') as f:
         posts = json.load(f)
@@ -88,6 +93,10 @@ def like():
     # Save the posts back to the JSON file
     with open('posts.json', 'w') as f:
         json.dump(posts, f)
+    # Add this post to the list of posts the user has liked
+    if 'liked_posts' not in session:
+        session['liked_posts'] = []
+    session['liked_posts'].append(filename)
     return json.dumps({'likes': updated_likes}), 200
 
 @app.route('/comment', methods=['POST'])
@@ -105,7 +114,7 @@ def comment():
     # Save the posts back to the JSON file
     with open('posts.json', 'w') as f:
         json.dump(posts, f)
-    return '', 204
+    return json.dumps({'message': 'Comment added.'}), 200
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
