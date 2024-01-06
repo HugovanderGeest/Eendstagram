@@ -99,6 +99,7 @@ body {
   padding: 20px;
   background-color: #2d2d2d;
   border-radius: 5px;
+  overflow: hidden;
 }
 
 .img-bottom-right {
