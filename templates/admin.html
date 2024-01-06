@@ -12,10 +12,13 @@
         <label for="filename">Verwijder</label>
         <select id="filename" name="filename">
             {% for post in posts %}
-                <option value="{{ post.filename }}">Titel: {{ post.caption }} <br> Beschrijving: <br> {{ post.description }}</option>
-            {% endfor %}
+            <form method="POST">
+                <input type="hidden" name="filename" value="{{ post.filename }}">
+                <input type="hidden" name="password" value="iksisknap">
+                <input type="submit" value="verwijder">
+            </form>
+        {% endfor %}
         </select>
-        <input type="submit" value="verwijder">
     </form>
 </body>
 </html>

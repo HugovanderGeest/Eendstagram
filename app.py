@@ -51,7 +51,7 @@ def admin():
                 json.dump(posts, f)
             return render_template('admin.html', posts=posts)
         else:
-            return redirect("https://nl.pornhub.com/gay/video/search?search=lennart+famboy")
+            return redirect("/admin")
     else:
         return render_template('login.html')
     
