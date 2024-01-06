@@ -28,9 +28,13 @@ def save_post(filename, caption):
 
 @app.route('/')
 def index():
+    # Load the posts from the JSON file
     with open('posts.json', 'r') as f:
         posts = json.load(f)
+    # Reverse the list of posts
+    posts = posts[::-1]
     return render_template('index.html', posts=posts)
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():
