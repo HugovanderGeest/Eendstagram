@@ -35,6 +35,26 @@ def index():
     posts = posts[::-1]
     return render_template('index.html', posts=posts)
 
+@app.route('/admin', methods=['GET', 'POST'])
+def admin():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        filename = request.form.get('filename')  # Get filename from form data
+        if password == 'iksisknap':
+            # Load the posts from the JSON file
+            with open('posts.json', 'r') as f:
+                posts = json.load(f)
+            # Remove the post with the given filename
+            posts = [post for post in posts if post['filename'] != filename]
+            # Save the posts back to the JSON file
+            with open('posts.json', 'w') as f:
+                json.dump(posts, f)
+            return render_template('admin.html', posts=posts)
+        else:
+            return redirect("https://nl.pornhub.com/gay/video/search?search=lennart+famboy")
+    else:
+        return render_template('login.html')
+    
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():

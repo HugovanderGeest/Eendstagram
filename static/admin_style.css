@@ -1,0 +1,35 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #333;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+form {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #444;
+}
+
+form select,
+form input[type="submit"] {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #555;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    form {
+        padding: 10px;
+        max-width: 90%;
+    }
+}
