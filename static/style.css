@@ -94,10 +94,17 @@ body {
     color: white;
 }
 
+.bestand {
+    margin-bottom: 20px;
+  padding: 20px;
+  background-color: #2d2d2d;
+  border-radius: 5px;
+}
+
 .img-bottom-right {
     position: fixed;
-    right: 0;
-    bottom: 0;
+    left: 0;
+    top: 0;
     width: 50px;
     height: auto;
     margin: 10px;

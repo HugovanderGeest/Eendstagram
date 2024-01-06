@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,18 +16,22 @@
             font-family: Arial, sans-serif;
             color: #ffffff;
         }
+
         form {
             background-color: #1e1e1e;
             padding: 20px;
             border-radius: 5px;
-            box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.1);
+            box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.1);
             width: 80%;
             max-width: 280px;
         }
+
         input[type="file"] {
             margin-bottom: 20px;
         }
-        input[type="text"], input[type="submit"] {
+
+        input[type="text"],
+        input[type="submit"] {
             width: 250px;
             padding: 10px;
             margin-bottom: 10px;
@@ -35,15 +40,18 @@
             background-color: #333333;
             color: #ffffff;
         }
+
         input[type="submit"] {
             background-color: #007BFF;
             width: 275px;
             color: #ffffff;
             cursor: pointer;
         }
+
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
         @media (max-width: 600px) {
             body {
                 padding: 20px;
@@ -51,27 +59,44 @@
         }
     </style>
 </head>
+
 <body>
     <form method="POST" enctype="multipart/form-data">
-        <h1>plaats een foto!</h1> 
-        <input type="text" name="caption" placeholder="Titel">
-        <input type="text" name="description" placeholder="omschijving">
-        <input type="file" name="photo">
+        <h1>plaats een foto!</h1>
+        <img id="img-preview" src="#" alt="Image Preview"
+            style="display: none; width: 250px; height: 250px; border-radius: 10px; margin: 10px;" />
+        <input type="text" name="caption" placeholder="Titel" required>
+        <input type="text" name="description" placeholder="omschijving" required>
+        <input class="bestand" type="file" name="photo" onchange="readURL(this);">
         <input type="submit" value="Upload">
     </form>
     <script>
         function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
-                
-                reader.onload = function(e) {
+
+                reader.onload = function (e) {
                     document.getElementById('preview').style.display = 'block';
                     document.getElementById('preview').src = e.target.result;
                 }
-                
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    document.getElementById('img-preview').style.display = 'block';
+                    document.getElementById('img-preview').src = e.target.result;
+                }
+
                 reader.readAsDataURL(input.files[0]);
             }
         }
     </script>
 </body>
+
 </html>
