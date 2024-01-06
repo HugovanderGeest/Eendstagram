@@ -12,8 +12,7 @@
     <button id="upload-button" onclick="location.href='/upload'" type="button">+</button>
     <img onclick="wiggle(this)" src="{{ url_for('static', filename='cropped-logo-1.png') }}" class="img-bottom-right" title="klik hier om een foto te uploaden">        {% for post in posts %}
         <div class="post">
-            <img onclick="wiggle(this)" src="{{ url_for('static', filename='uploads/' + post.filename) }}" alt="Post image">
-            <p class="titel">{{ post.caption }}</p> 
+            <img onclick="wiggle(this)" src="{{ url_for('static', filename='uploads/' + post.filename) }}" alt="Post image" class="cursor-hand" title="aai mij ;)">            <p class="titel">{{ post.caption }}</p> 
             <p class="omschijving">{{ post.description }}</p>
 
             <button class="like-button icons" data-filename="{{ post.filename }}">

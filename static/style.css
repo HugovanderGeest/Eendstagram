@@ -4,7 +4,6 @@ body {
     color: #ffffff;
     margin: 0;
     padding: 0;
-    display: flex;
     justify-content: center;
     height: 100vh;
 }
@@ -26,6 +25,11 @@ body {
     width: 100%;
     box-shadow: 0px 0px 10px 0px rgba(255, 255, 255, 0.1);
     border-radius: 30px;
+    scale: 0.9;
+    max-width: 700px;
+    position: relative;
+    left: 45%;
+    transform: translateX(-50%);
 }
 
 .floating-button {
@@ -114,24 +118,6 @@ body {
   max-width: 60vw;
 }
 
-@keyframes wiggle {
-    0% { transform: rotate(0deg); }
-    10% { transform: rotate(-5deg); }
-    20% { transform: rotate(5deg); }
-    30% { transform: rotate(-5deg); }
-    40% { transform: rotate(5deg); }
-    50% { transform: rotate(-5deg); }
-    60% { transform: rotate(5deg); }
-    70% { transform: rotate(-5deg); }
-    80% { transform: rotate(5deg); }
-    90% { transform: rotate(-5deg); }
-    100% { transform: rotate(0deg); }
-  }
-  
-  .wiggle {
-    animation: wiggle 0.5s linear;
-  }
-
 .img-bottom-right {
     position: absolute;
     left: 0;
@@ -139,6 +125,7 @@ body {
     width: 70px;
     height: auto;
     margin: 10px;
+    z-index: 1000;
 }
 
 .icons:hover {
@@ -191,3 +178,26 @@ body {
 #upload-button:hover {
     background-color: #0056b3;
 }
+
+.cursor-hand {
+    cursor: pointer;
+  }
+
+
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    10% { transform: rotate(-5deg); }
+    20% { transform: rotate(5deg); }
+    30% { transform: rotate(-5deg); }
+    40% { transform: rotate(5deg); }
+    50% { transform: rotate(-5deg); }
+    60% { transform: rotate(5deg); }
+    70% { transform: rotate(-5deg); }
+    80% { transform: rotate(5deg); }
+    90% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  .wiggle {
+    animation: wiggle 0.5s linear;
+  }
