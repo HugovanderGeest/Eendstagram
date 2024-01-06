@@ -5,7 +5,6 @@ import json
 import secrets
 from PIL import Image
 
-
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 app.config['UPLOAD_FOLDER'] = 'static/uploads/'
@@ -67,6 +66,8 @@ def upload():
             photo_path = os.path.join('static/uploads', filename)
             photo.save(photo_path)
 
+            # Remove the call to is_duck
+
             # Open the image file
             img = Image.open(photo_path)
             # Resize it - keeping aspect ratio
@@ -78,6 +79,7 @@ def upload():
             save_post(filename, caption, description)
             return redirect(url_for('index'))
     return render_template('upload.html')
+    
 
 def save_post(filename, caption, description):
     with open('posts.json', 'r') as f:

@@ -94,6 +94,15 @@ body {
     color: white;
 }
 
+.img-bottom-right {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 50px;
+    height: auto;
+    margin: 10px;
+}
+
 .icons:hover {
     transform: scale(1.1);
 }
