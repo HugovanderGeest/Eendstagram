@@ -50,10 +50,10 @@ def admin():
                 json.dump(posts, f)
             return render_template('admin.html', posts=posts)
         else:
-            return redirect("/admin")
+            return redirect("https://www.xnxx.com/search/femboy")
     else:
         return render_template('login.html')
-    
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():

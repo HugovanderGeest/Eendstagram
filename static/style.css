@@ -115,10 +115,10 @@ body {
 }
 
 .img-bottom-right {
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
-    width: 50px;
+    width: 70px;
     height: auto;
     margin: 10px;
 }

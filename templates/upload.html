@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <title>Upload Image</title>
+
+</head>
+    <img onclick="location.href='/upload'" src="{{ url_for('static', filename='cropped-logo-1.png') }}" class="img-bottom-right" title="klik hier om een foto te uploaden">    <div class="posts-grid">
+
     <style>
         body {
             display: flex;
@@ -59,16 +63,13 @@
             }
         }
     </style>
-</head>
-
-<body>
-    <form method="POST" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data">
         <h1>Plaats een eend ;)</h1>
         <img id="img-preview" src="#" alt="Image Preview"
             style="display: none; max-width: 250px; border-radius: 10px; margin: 10px;" />
         <input type="text" name="caption" placeholder="Titel" required>
         <input type="text" name="description" placeholder="omschijving" required>
-        <input class="bestand" type="file" name="photo" onchange="readURL(this);">
+        <input class="bestand" type="file" name="photo" onchange="readURL(this);" required>
         <input type="submit" value="Upload">
     </form>
     <script>
