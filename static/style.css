@@ -94,12 +94,24 @@ body {
     color: white;
 }
 
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.grid-item {
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+
 .bestand {
     margin-bottom: 20px;
   padding: 20px;
   background-color: #2d2d2d;
   border-radius: 5px;
   overflow: hidden;
+  max-width: 60vw;
 }
 
 .img-bottom-right {

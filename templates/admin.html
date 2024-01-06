@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Page</title>
     <meta charset="UTF-8">
@@ -7,20 +8,24 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin_style.css') }}">
 
 </head>
+
 <body>
     <form method="POST">
-        <label for="filename">Verwijder</label>
-        <select id="filename" name="filename">
+        <div class="grid-container">
             {% for post in posts %}
-            <form method="POST">
-                <option value="{{ post.filename }}">  Titel:       {{ post.caption }}
-                 Beschrijving:   {{ post.description }} {{ post.filename }}</option>
-                <input type="hidden" name="filename" value="{{ post.filename }}">
-                <input type="hidden" name="password" value="iksisknap">
-                <input type="submit" value="verwijder">
-            </form>
-        {% endfor %}
-        </select>
+            <div class="grid-item">
+                <form method="POST">
+                    <h2>Titel: {{ post.caption }}</h2>
+                    <p>Beschrijving: {{ post.description }}</p>
+                    <p>{{ post.filename }}</p>
+                    <input type="hidden" name="filename" value="{{ post.filename }}">
+                    <input type="hidden" name="password" value="iksisknap">
+                    <input type="submit" value="verwijder">
+                </form>
+            </div>
+            {% endfor %}
+        </div>
     </form>
 </body>
+
 </html>
