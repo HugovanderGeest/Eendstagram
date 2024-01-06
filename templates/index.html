@@ -10,11 +10,9 @@
 
 <body>
     <button id="upload-button" onclick="location.href='/upload'" type="button">+</button>
-    <img onclick="location.href='/upload'" src="{{ url_for('static', filename='cropped-logo-1.png') }}" class="img-bottom-right" title="klik hier om een foto te uploaden">    <div class="posts-grid">
-        {% for post in posts %}
+    <img onclick="wiggle(this)" src="{{ url_for('static', filename='cropped-logo-1.png') }}" class="img-bottom-right" title="klik hier om een foto te uploaden">        {% for post in posts %}
         <div class="post">
-            <img src="{{ url_for('static', filename='uploads/' + post.filename) }}" alt="Post image">
-
+            <img onclick="wiggle(this)" src="{{ url_for('static', filename='uploads/' + post.filename) }}" alt="Post image">
             <p class="titel">{{ post.caption }}</p> 
             <p class="omschijving">{{ post.description }}</p>
 
@@ -46,6 +44,13 @@
     </div>
 
     <script>
+
+function wiggle(element) {
+  element.classList.add('wiggle');
+  setTimeout(function() {
+    element.classList.remove('wiggle');
+  }, 500); // Remove the class after the animation duration
+}
         
         document.querySelectorAll('.comment-button').forEach(function (button) {
             button.addEventListener('click', function () {
