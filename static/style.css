@@ -183,6 +183,32 @@ body {
     cursor: pointer;
   }
 
+.tooltip {
+    position: absolute;
+    background-color: transparent;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30%;
+    font-size: 30px;
+    color: red;
+    border: none;
+    font-weight: 900;
+
+  }
+  
+.cursor-hand:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+  }
+
 
 @keyframes wiggle {
     0% { transform: rotate(0deg); }
